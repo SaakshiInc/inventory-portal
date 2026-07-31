@@ -1,0 +1,210 @@
+<mvc:View
+	controllerName="novamart.inventory.controller.Detail"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form">
+
+	<f:DynamicPage id="dynamicPageDetail" headerExpanded="true">
+		<!-- Header Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{products>name}" level="H2" />
+				</f:heading>
+				<f:snappedContent>
+					<Text text="{i18n>detailLabelSKU}: {products>sku}" />
+				</f:snappedContent>
+				<f:expandedContent>
+					<Text text="{
+						parts: [
+							{path: 'products>stock'},
+							{path: 'products>reorderThreshold'}
+						],
+						formatter: '.formatter.stockStatusText'
+					}" />
+				</f:expandedContent>
+				<f:actions>
+					<Button
+						text="{i18n>btnReorderStock}"
+						icon="sap-icon://shipping-status"
+						type="Emphasized"
+						press=".onReorderStock" />
+					<Button
+						text="{i18n>btnEditProduct}"
+						icon="sap-icon://edit"
+						press=".onEditProduct" />
+					<Button
+						text="{i18n>btnDeleteProduct}"
+						icon="sap-icon://delete"
+						type="Reject"
+						press=".onDeleteProduct" />
+					<Button
+						icon="{= ${appView>/actionButtonsInfo/midColumn/fullScreen} ? 'sap-icon://exit-full-screen' : 'sap-icon://full-screen' }"
+						tooltip="Toggle Fullscreen"
+						press=".onToggleFullScreen" />
+					<Button
+						icon="sap-icon://decline"
+						tooltip="Close Detail"
+						press=".onCloseDetail" />
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<!-- Header Content (ObjectHeader style summary) -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<VBox width="100%">
+					<ObjectHeader
+						title="{products>name}"
+						number="{
+							parts: [
+								{path: 'products>price'},
+								{path: 'products>currency'}
+							],
+							formatter: '.formatter.currencyValue'
+						}"
+						numberUnit="{products>currency}">
+						<attributes>
+							<ObjectAttribute text="{i18n>detailLabelCategory}: {products>category}" />
+							<ObjectAttribute text="{i18n>detailLabelSupplier}: {products>supplier}" />
+							<ObjectAttribute text="{i18n>detailLabelWarehouse}: {products>warehouse}" />
+						</attributes>
+						<statuses>
+							<ObjectStatus
+								title="{i18n>masterTableColStock}"
+								text="{
+									parts: [
+										{path: 'products>stock'},
+										{path: 'products>reorderThreshold'}
+									],
+									formatter: '.formatter.stockStatusText'
+								}"
+								state="{
+									parts: [
+										{path: 'products>stock'},
+										{path: 'products>reorderThreshold'}
+									],
+									formatter: '.formatter.stockStatusState'
+								}"
+								icon="{
+									parts: [
+										{path: 'products>stock'},
+										{path: 'products>reorderThreshold'}
+									],
+									formatter: '.formatter.stockStatusIcon'
+								}" />
+						</statuses>
+					</ObjectHeader>
+				</VBox>
+			</f:DynamicPageHeader>
+		</f:header>
+
+		<!-- Page Content: Detailed Forms & Quick Adjustment -->
+		<f:content>
+			<VBox class="sapUiSmallMargin">
+				<!-- Quick Stock Adjustment Interactive Panel -->
+				<Panel headerText="{i18n>detailSectionQuickAdjust}" expandable="true" expanded="true">
+					<VBox class="novamartQuickAdjustBox">
+						<Label text="Adjust Inventory Stock Quantity On-the-fly:" class="sapUiTinyMarginBottom" />
+						<HBox wrap="Wrap" alignItems="Center">
+							<Button text="+1 Unit" type="Default" icon="sap-icon://add" press=".onAdjustStock1" class="sapUiTinyMarginEnd" />
+							<Button text="+10 Units" type="Default" icon="sap-icon://add" press=".onAdjustStock10" class="sapUiTinyMarginEnd" />
+							<Button text="+25 Units (Batch)" type="Emphasized" icon="sap-icon://shipping-status" press=".onReorderStock" class="sapUiTinyMarginEnd" />
+							<Button text="-1 Unit" type="Reject" icon="sap-icon://less" press=".onAdjustStockMinus1" />
+						</HBox>
+					</VBox>
+				</Panel>
+
+				<!-- General Details Section -->
+				<Panel headerText="{i18n>detailSectionGeneral}" class="sapUiSmallMarginTop" expandable="true" expanded="true">
+					<form:SimpleForm
+						editable="false"
+						layout="ColumnLayout"
+						columnsM="2"
+						columnsL="2">
+						<form:content>
+							<Label text="{i18n>detailLabelSKU}" />
+							<Text text="{products>sku}" />
+
+							<Label text="{i18n>detailLabelCategory}" />
+							<Text text="{products>category}" />
+
+							<Label text="{i18n>detailLabelPrice}" />
+							<Text text="{
+								parts: [
+									{path: 'products>price'},
+									{path: 'products>currency'}
+								],
+								formatter: '.formatter.currencyValue'
+							}" />
+
+							<Label text="{i18n>detailLabelSupplier}" />
+							<Text text="{products>supplier}" />
+
+							<Label text="{i18n>detailLabelWarehouse}" />
+							<Text text="{products>warehouse}" />
+
+							<Label text="{i18n>detailLabelLastUpdated}" />
+							<Text text="{
+								path: 'products>lastUpdated',
+								formatter: '.formatter.formatDate'
+							}" />
+						</form:content>
+					</form:SimpleForm>
+				</Panel>
+
+				<!-- Inventory & Stock Section -->
+				<Panel headerText="{i18n>detailSectionInventory}" class="sapUiSmallMarginTop" expandable="true" expanded="true">
+					<form:SimpleForm
+						editable="false"
+						layout="ColumnLayout"
+						columnsM="2"
+						columnsL="2">
+						<form:content>
+							<Label text="{i18n>detailLabelStock}" />
+							<ObjectNumber
+								number="{products>stock}"
+								unit="Units"
+								state="{
+									parts: [
+										{path: 'products>stock'},
+										{path: 'products>reorderThreshold'}
+									],
+									formatter: '.formatter.stockStatusState'
+								}" />
+
+							<Label text="Stock Level Indicator" />
+							<ProgressIndicator
+								percentValue="{
+									parts: [
+										{path: 'products>stock'},
+										{path: 'products>reorderThreshold'}
+									],
+									formatter: '.formatter.stockPercent'
+								}"
+								displayValue="{products>stock} Units"
+								state="{
+									parts: [
+										{path: 'products>stock'},
+										{path: 'products>reorderThreshold'}
+									],
+									formatter: '.formatter.stockStatusState'
+								}"
+								height="16px"
+								class="novamartStockProgress" />
+
+							<Label text="{i18n>detailLabelThreshold}" />
+							<Text text="{products>reorderThreshold} Units" />
+						</form:content>
+					</form:SimpleForm>
+				</Panel>
+
+				<!-- Description Section -->
+				<Panel headerText="{i18n>detailSectionDescription}" class="sapUiSmallMarginTop" expandable="true" expanded="true">
+					<Text text="{products>description}" class="sapUiTinyMargin" />
+				</Panel>
+			</VBox>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,114 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		id="addEditProductDialog"
+		title="{= ${dialogModel>/isEdit} ? ${i18n>dialogTitleEdit} : ${i18n>dialogTitleAdd} }"
+		contentWidth="550px"
+		draggable="true"
+		resizable="true">
+		<content>
+			<form:SimpleForm
+				editable="true"
+				layout="ColumnLayout"
+				columnsM="1"
+				columnsL="2">
+				<form:content>
+					<!-- Product ID -->
+					<Label text="{i18n>dialogLabelId}" required="true" />
+					<Input
+						value="{dialogModel>/productId}"
+						editable="{= !${dialogModel>/isEdit} }"
+						valueState="{dialogModel>/valStateId}"
+						valueStateText="{i18n>valRequiredField}"
+						change=".onValidateDialogInputs" />
+
+					<!-- Product Name -->
+					<Label text="{i18n>dialogLabelName}" required="true" />
+					<Input
+						value="{dialogModel>/name}"
+						valueState="{dialogModel>/valStateName}"
+						valueStateText="{i18n>valRequiredField}"
+						change=".onValidateDialogInputs" />
+
+					<!-- Category -->
+					<Label text="{i18n>dialogLabelCategory}" required="true" />
+					<Select
+						selectedKey="{dialogModel>/category}">
+						<core:Item key="Gourmet Spices &amp; Oils" text="Gourmet Spices &amp; Oils" />
+						<core:Item key="Dairy &amp; Packaged Commodities" text="Dairy &amp; Packaged Commodities" />
+						<core:Item key="Kitchenware &amp; Appliances" text="Kitchenware &amp; Appliances" />
+						<core:Item key="Hygiene &amp; Sanitation" text="Hygiene &amp; Sanitation" />
+						<core:Item key="Eco Packaging" text="Eco Packaging" />
+					</Select>
+
+					<!-- SKU -->
+					<Label text="{i18n>dialogLabelSKU}" required="true" />
+					<Input
+						value="{dialogModel>/sku}"
+						valueState="{dialogModel>/valStateSKU}"
+						valueStateText="{i18n>valRequiredField}"
+						change=".onValidateDialogInputs" />
+
+					<!-- Price -->
+					<Label text="{i18n>dialogLabelPrice}" required="true" />
+					<Input
+						value="{dialogModel>/price}"
+						type="Number"
+						valueState="{dialogModel>/valStatePrice}"
+						valueStateText="{i18n>valPriceInvalid}"
+						change=".onValidateDialogInputs" />
+
+					<!-- Stock Quantity -->
+					<Label text="{i18n>dialogLabelStock}" required="true" />
+					<Input
+						value="{dialogModel>/stock}"
+						type="Number"
+						valueState="{dialogModel>/valStateStock}"
+						valueStateText="{i18n>valStockInvalid}"
+						change=".onValidateDialogInputs" />
+
+					<!-- Reorder Threshold -->
+					<Label text="{i18n>dialogLabelThreshold}" required="true" />
+					<Input
+						value="{dialogModel>/reorderThreshold}"
+						type="Number"
+						valueState="{dialogModel>/valStateThreshold}"
+						valueStateText="{i18n>valThresholdInvalid}"
+						change=".onValidateDialogInputs" />
+
+					<!-- Supplier -->
+					<Label text="{i18n>dialogLabelSupplier}" />
+					<Input
+						value="{dialogModel>/supplier}"
+						showValueHelp="true"
+						valueHelpRequest=".onOpenValueHelpSupplier" />
+
+					<!-- Warehouse Location -->
+					<Label text="{i18n>dialogLabelWarehouse}" />
+					<Input
+						value="{dialogModel>/warehouse}" />
+
+					<!-- Description -->
+					<Label text="{i18n>dialogLabelDescription}" />
+					<TextArea
+						value="{dialogModel>/description}"
+						rows="3"
+						growing="true" />
+				</form:content>
+			</form:SimpleForm>
+		</content>
+		<beginButton>
+			<Button
+				text="{i18n>btnSave}"
+				type="Emphasized"
+				press=".onSaveProductDialog" />
+		</beginButton>
+		<endButton>
+			<Button
+				text="{i18n>btnCancel}"
+				press=".onCloseProductDialog" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

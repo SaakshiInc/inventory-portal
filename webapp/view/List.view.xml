@@ -1,0 +1,261 @@
+<mvc:View
+	controllerName="novamart.inventory.controller.List"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:f="sap.f"
+	xmlns:layout="sap.ui.layout">
+
+	<f:DynamicPage id="dynamicPageList" headerExpanded="true" busy="{masterView>/isBusy}" busyIndicatorDelay="0">
+		<!-- DynamicPage Title / Header -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title
+						text="{i18n>masterTitle}"
+						level="H2" />
+				</f:heading>
+				<f:snappedContent>
+					<Text text="{i18n>appSubtitle}" />
+				</f:snappedContent>
+				<f:actions>
+					<Button
+						icon="sap-icon://add"
+						text="{i18n>btnAddProduct}"
+						type="Emphasized"
+						press=".onAddProduct" />
+					<Button
+						icon="sap-icon://excel-attachment"
+						text="{i18n>btnExportCSV}"
+						press=".onExportCSV" />
+					<Button
+						icon="sap-icon://shipping-status"
+						text="{i18n>btnBulkReorder}"
+						type="Default"
+						press=".onBulkReorder" />
+					<Button
+						icon="sap-icon://filter"
+						tooltip="{i18n>btnViewSettings}"
+						press=".onOpenViewSettings" />
+					<MenuButton icon="sap-icon://action-settings" tooltip="Settings">
+						<menu>
+							<Menu>
+								<items>
+									<MenuItem text="Run QUnit Tests" icon="sap-icon://test" press=".onOpenQUnitTestDialog" />
+									<MenuItem text="{i18n>btnResetDataset}" icon="sap-icon://reset" press=".onResetDataset" />
+									<MenuItem text="{i18n>labelThemeSwitch}">
+										<items>
+											<MenuItem text="{i18n>themeHorizonLight}" press=".onChangeThemeLight" />
+											<MenuItem text="{i18n>themeHorizonDark}" press=".onChangeThemeDark" />
+										</items>
+									</MenuItem>
+									<MenuItem text="{i18n>labelLanguageSwitch}">
+										<items>
+											<MenuItem text="{i18n>langEnglish}" press=".onChangeLangEN" />
+											<MenuItem text="{i18n>langGerman}" press=".onChangeLangDE" />
+											<MenuItem text="{i18n>langHindi}" press=".onChangeLangHI" />
+										</items>
+									</MenuItem>
+								</items>
+							</Menu>
+						</menu>
+					</MenuButton>
+				</f:actions>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<!-- DynamicPage SubHeader: Executive KPI Summary Tiles & Live Search -->
+		<f:header>
+			<f:DynamicPageHeader pinnable="true">
+				<VBox>
+					<!-- KPI Summary Header Tiles -->
+					<HBox class="sapUiTinyMarginBottom novamartKpiContainer" wrap="Wrap" justifyContent="Start">
+						<GenericTile
+							class="sapUiTinyMarginEnd sapUiTinyMarginBottom novamartKpiTile"
+							header="{i18n>kpiTotalProducts}"
+							frameType="OneByOne"
+							press=".onResetFilters">
+							<tileContent>
+								<TileContent>
+									<NumericContent
+										value="{masterView>/kpiTotalCount}"
+										valueColor="Neutral"
+										icon="sap-icon://product" />
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+
+						<GenericTile
+							class="sapUiTinyMarginEnd sapUiTinyMarginBottom novamartKpiTile"
+							header="{i18n>kpiLowStockCount}"
+							frameType="OneByOne"
+							press=".onFilterLowStockOnly">
+							<tileContent>
+								<TileContent>
+									<NumericContent
+										value="{masterView>/kpiLowStockCount}"
+										valueColor="Critical"
+										icon="sap-icon://alert" />
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+
+						<GenericTile
+							class="sapUiTinyMarginEnd sapUiTinyMarginBottom novamartKpiTile"
+							header="{i18n>kpiOutOfStockCount}"
+							frameType="OneByOne"
+							press=".onFilterOutOfStockOnly">
+							<tileContent>
+								<TileContent>
+									<NumericContent
+										value="{masterView>/kpiOutOfStockCount}"
+										valueColor="Error"
+										icon="sap-icon://error" />
+								</TileContent>
+							</tileContent>
+						</GenericTile>
+					</HBox>
+
+					<!-- Live Search Bar -->
+					<SearchField
+						id="searchField"
+						width="100%"
+						placeholder="{i18n>masterSearchPlaceholder}"
+						liveChange=".onSearch"
+						search=".onSearch" />
+				</VBox>
+			</f:DynamicPageHeader>
+		</f:header>
+
+		<!-- Content: Enhanced Table with Avatars, Stock Progress & Quick Actions -->
+		<f:content>
+			<Table
+				id="productsTable"
+				items="{
+					path: 'products>/products',
+					sorter: { path: 'name' }
+				}"
+				mode="MultiSelect"
+				selectionChange=".onProductSelect"
+				itemPress=".onProductPress"
+				growing="true"
+				growingThreshold="15"
+				noDataText="{i18n>masterNoDataText}">
+				<headerToolbar>
+					<OverflowToolbar>
+						<Title
+							id="tableHeaderTitle"
+							text="{masterView>/headerTitle}"
+							level="H3" />
+						<ToolbarSpacer />
+						<ToggleButton
+							icon="sap-icon://alert"
+							text="{i18n>btnLowStockFilter}"
+							pressed="{masterView>/isLowStockFilterPressed}"
+							press=".onToggleLowStockFilter" />
+						<Button
+							icon="sap-icon://refresh"
+							tooltip="{i18n>btnResetFilters}"
+							type="Transparent"
+							press=".onResetFilters" />
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column id="colProduct">
+						<Text text="{i18n>masterTableColProduct}" />
+					</Column>
+					<Column id="colCategory" minScreenWidth="Tablet" demandPopin="true">
+						<Text text="{i18n>masterTableColCategory}" />
+					</Column>
+					<Column id="colStock" hAlign="Center" width="220px">
+						<Text text="{i18n>masterTableColStock}" />
+					</Column>
+					<Column id="colPrice" hAlign="End">
+						<Text text="{i18n>masterTableColPrice}" />
+					</Column>
+					<Column id="colActions" hAlign="Center" width="100px">
+						<Text text="{i18n>masterTableColActions}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation" press=".onProductPress">
+						<cells>
+							<HBox alignItems="Center">
+								<Avatar
+									src="{
+										path: 'products>category',
+										formatter: '.formatter.categoryIcon'
+									}"
+									displaySize="XS"
+									class="sapUiTinyMarginEnd novamartCategoryAvatar" />
+								<VBox>
+									<ObjectIdentifier
+										title="{products>name}"
+										text="{products>sku}"
+										titleActive="true"
+										titlePress=".onProductPress" />
+								</VBox>
+							</HBox>
+							<Text text="{products>category}" />
+							<VBox>
+								<ObjectStatus
+									text="{
+										parts: [
+											{path: 'products>stock'},
+											{path: 'products>reorderThreshold'}
+										],
+										formatter: '.formatter.stockStatusText'
+									}"
+									state="{
+										parts: [
+											{path: 'products>stock'},
+											{path: 'products>reorderThreshold'}
+										],
+										formatter: '.formatter.stockStatusState'
+									}"
+									icon="{
+										parts: [
+											{path: 'products>stock'},
+											{path: 'products>reorderThreshold'}
+										],
+										formatter: '.formatter.stockStatusIcon'
+									}" />
+								<ProgressIndicator
+									percentValue="{
+										parts: [
+											{path: 'products>stock'},
+											{path: 'products>reorderThreshold'}
+										],
+										formatter: '.formatter.stockPercent'
+									}"
+									displayValue="{products>stock} Units"
+									state="{
+										parts: [
+											{path: 'products>stock'},
+											{path: 'products>reorderThreshold'}
+										],
+										formatter: '.formatter.stockStatusState'
+									}"
+									height="14px"
+									class="novamartStockProgress" />
+							</VBox>
+							<ObjectNumber
+								number="{
+									parts: [
+										{path: 'products>price'},
+										{path: 'products>currency'}
+									],
+									formatter: '.formatter.currencyValue'
+								}" />
+							<Button
+								icon="sap-icon://shipping-status"
+								tooltip="{i18n>btnReorderStock}"
+								type="Transparent"
+								press=".onQuickReorder" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

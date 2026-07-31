@@ -1,0 +1,40 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<ViewSettingsDialog
+		id="viewSettingsDialog"
+		confirm=".onConfirmViewSettings">
+		<sortItems>
+			<ViewSettingsItem
+				text="{i18n>dialogLabelName}"
+				key="name"
+				selected="true" />
+			<ViewSettingsItem
+				text="{i18n>dialogLabelPrice}"
+				key="price" />
+			<ViewSettingsItem
+				text="{i18n>dialogLabelStock}"
+				key="stock" />
+		</sortItems>
+		<groupItems>
+			<ViewSettingsItem
+				text="{i18n>dialogLabelCategory}"
+				key="category" />
+			<ViewSettingsItem
+				text="{i18n>dialogLabelSupplier}"
+				key="supplier" />
+		</groupItems>
+		<filterItems>
+			<ViewSettingsFilterItem
+				text="{i18n>masterTableColStock}"
+				key="stockStatus"
+				multiSelect="true">
+				<items>
+					<ViewSettingsItem text="{i18n>statusAvailable}" key="AVAILABLE" />
+					<ViewSettingsItem text="{i18n>statusLowStock}" key="LOW_STOCK" />
+					<ViewSettingsItem text="{i18n>statusOutOfStock}" key="OUT_OF_STOCK" />
+				</items>
+			</ViewSettingsFilterItem>
+		</filterItems>
+	</ViewSettingsDialog>
+</core:FragmentDefinition>

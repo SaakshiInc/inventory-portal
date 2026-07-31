@@ -1,0 +1,16 @@
+<mvc:View
+	controllerName="novamart.inventory.controller.NotFound"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m">
+	<IllustratedMessage
+		illustrationType="sapIllus-PageNotFound"
+		title="{i18n>notFoundTitle}"
+		description="{i18n>notFoundText}">
+		<additionalContent>
+			<Button
+				text="{i18n>btnBackToList}"
+				type="Emphasized"
+				press=".onNavBack" />
+		</additionalContent>
+	</IllustratedMessage>
+</mvc:View>

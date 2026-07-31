@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NovaMart - Product Inventory & Order Management Portal</title>
+	
+	<!-- SAPUI5 Bootstrap -->
+	<script id="sap-ui-bootstrap"
+		src="https://sdk.openui5.org/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-resourceroots='{
+			"novamart.inventory": "./"
+		}'
+		data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+		data-sap-ui-compatVersion="edge"
+		data-sap-ui-async="true">
+	</script>
+</head>
+<body class="sapUiBody" id="content">
+	<div data-sap-ui-component
+		data-name="novamart.inventory"
+		data-id="container"
+		data-settings='{"id" : "novamart.inventory"}'
+		style="height: 100vh;">
+	</div>
+</body>
+</html>

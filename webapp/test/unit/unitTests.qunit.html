@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Unit Tests - NovaMart Inventory Portal</title>
+
+	<!-- QUnit CSS & JS -->
+	<link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.19.4.css">
+	<script src="https://code.jquery.com/qunit/qunit-2.19.4.js"></script>
+
+	<script>
+		// Prevent QUnit from auto-starting before SAPUI5 async module loader completes
+		QUnit.config.autostart = false;
+	</script>
+
+	<!-- SAPUI5 Bootstrap -->
+	<script id="sap-ui-bootstrap"
+		src="https://sdk.openui5.org/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_horizon"
+		data-sap-ui-resourceroots='{
+			"novamart.inventory": "../../"
+		}'
+		data-sap-ui-async="true">
+	</script>
+
+	<script>
+		sap.ui.getCore().attachInit(function () {
+			sap.ui.require([
+				"novamart/inventory/test/unit/unitTests.qunit"
+			], function () {
+				QUnit.start();
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="qunit"></div>
+	<div id="qunit-fixture"></div>
+</body>
+</html>

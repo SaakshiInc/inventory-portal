@@ -1,0 +1,64 @@
+/* NovaMart Enterprise Fiori Horizon Custom Styling */
+
+/* General shell background and typography */
+.sapUiBody {
+	font-family: "72", "72full", Arial, Helvetica, sans-serif;
+	background-color: var(--sapBackgroundColor, #f5f6f7);
+}
+
+/* KPI Summary Cards Container */
+.novamartKpiContainer {
+	padding: 0.5rem 1rem;
+	background: var(--sapTile_Background, #ffffff);
+	border-bottom: 1px solid var(--sapGroup_ContentBorderColor, #e5e5e5);
+}
+
+.novamartKpiTile {
+	border-radius: 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.novamartKpiTile:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Master list custom header count badge */
+.novamartListHeaderCount {
+	font-weight: bold;
+	color: var(--sapBrandColor, #0a6ed1);
+}
+
+/* Category Avatar Icons */
+.novamartCategoryAvatar {
+	background-color: var(--sapAccentColor1, #eef4f9);
+}
+
+/* Progress Indicator Stock Bar */
+.novamartStockProgress .sapMPIGBF {
+	border-radius: 4px;
+}
+
+/* Product Detail header card enhancement */
+.novamartDetailHeader {
+	border-bottom: 1px solid var(--sapList_BorderColor, #e5e5e5);
+	padding-bottom: 1rem;
+}
+
+/* Form section headers */
+.novamartFormHeader {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: var(--sapGroup_TitleTextColor, #32363a);
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+/* Quick Stock Action Buttons */
+.novamartQuickAdjustBox {
+	background: var(--sapGroup_ContentBackground, #f9fafb);
+	border: 1px dashed var(--sapField_BorderColor, #cccccc);
+	border-radius: 8px;
+	padding: 1rem;
+}

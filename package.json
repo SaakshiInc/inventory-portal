@@ -1,0 +1,17 @@
+{
+  "name": "inventory-portal",
+  "version": "1.0.0",
+  "description": "NovaMart Product Inventory & Order Management Portal",
+  "scripts": {
+    "start": "npx serve webapp"
+  },
+  "keywords": [
+    "sapui5",
+    "fiori",
+    "freestyle",
+    "json-model",
+    "master-detail"
+  ],
+  "author": "NovaMart Trainee",
+  "license": "UNLICENSED"
+}

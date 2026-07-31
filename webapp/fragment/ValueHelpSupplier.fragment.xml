@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="supplierSelectDialog"
+		title="{i18n>btnSelectSupplier}"
+		search=".onSearchSupplierValueHelp"
+		confirm=".onConfirmSupplierValueHelp"
+		cancel=".onCancelSupplierValueHelp"
+		items="{
+			path: 'products>/products',
+			templateShareable: false
+		}">
+		<StandardListItem
+			title="{products>supplier}"
+			description="{products>warehouse}"
+			icon="sap-icon://supplier" />
+	</SelectDialog>
+</core:FragmentDefinition>
