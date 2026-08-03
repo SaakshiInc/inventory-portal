@@ -15,13 +15,13 @@ cd /home/user/projects/inventory-portal
 ```
 ### Step 2: Start the Application Dev Server
 Run the following command to serve the application:
-Run either of these simple commands to serve the application:
 ```bash
 npx serve -l 8080 webapp
 ```
-### Step 3: Open in Browser
-Click on the generated workspace preview link in BAS or open:
-`https://port38695-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap`
+Open in Browser:
+   Click the BAS preview notification or open:  
+   `https://port8080-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap`
+
 ---
 ## 📁 Project Structure
 ```
