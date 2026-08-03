@@ -17,7 +17,9 @@ cd /home/user/projects/inventory-portal
 Run the following command to serve the application:
 ```bash
 npx serve -l 8080 webapp
-```or
+```
+or
+
 ```bash
 npm start
 ```
