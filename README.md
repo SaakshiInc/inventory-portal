@@ -2,12 +2,12 @@
 > Enterprise-grade SAPUI5 Freestyle Master-Detail portal designed for warehouse product inventory management, automated stock alerts, and procurement workflows.
 
 ---
-## 🔗 Project Links & Submission Metadata
-- 📦 **GitHub Repository**: [https://github.com/SaakshiInc/inventory-portal](https://github.com/SaakshiInc/inventory-portal)
-- 🌐 **Live Application URL**: [https://port8080-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap](https://port8080-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap)
-- 🧪 **Automated QUnit Tests**: Executable in-app via `[🧪 Run QUnit Tests]` button on the main toolbar
+##  Project Links & Submission Metadata
+-  **GitHub Repository**: [https://github.com/SaakshiInc/inventory-portal](https://github.com/SaakshiInc/inventory-portal)
+-  **Live Application URL**: [https://port8080-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap](https://port8080-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap)
+-  **Automated QUnit Tests**: Executable in-app via `[ Run QUnit Tests]` button on the main toolbar
 ---
-## 🚀 How to Run in SAP Business Application Studio (BAS)
+##  How to Run in SAP Business Application Studio (BAS)
 ### Step 1: Open Terminal in BAS
 Open your SAP Business Application Studio workspace terminal and navigate to the project root:
 ```bash
@@ -28,7 +28,7 @@ Open in Browser:
    `https://port8080-workspaces-ws-4ac9c.us10.trial.applicationstudio.cloud.sap`
 
 ---
-## 📁 Project Structure
+##  Project Structure
 ```
 inventory-portal/
 ├── package.json                   # App configuration & start scripts
@@ -65,7 +65,7 @@ inventory-portal/
         └── formatterTest.js       # 6 test suites (19 assertions)
 ```
 ---
-## 🌟 Implemented Features
+##  Implemented Features
 - **Executive KPI Dashboard**: 3 real-time interactive tiles (*Total Products*, *Low Stock Alerts*, *Out of Stock Items*).
 - **Flexible Column Layout**: `sap.f.FlexibleColumnLayout` master-detail floorplan with deep-linking support (`#/product/{productId}`).
 - **Data Binding & Formatter Engine**: Demonstrates aggregation, element, expression, property, and two-way binding with 6 custom formatters.
@@ -74,18 +74,18 @@ inventory-portal/
 - **Multi-Language & Theme Support**: Runtime localization switching (English, German, Hindi) and Fiori Horizon Light/Dark themes.
 - **Automated QUnit Testing**: Integrated 6 test suites with 19 passing assertions verifying all formatter logic.
 ---
-## 🎯 Topic-Coverage Self-Check Matrix
-| # | Topic Trained | Implementation | Status |
+##  Topic-Coverage Self-Check Matrix
+| # | Topic Trained | Implementation | 
 | :---: | :--- | :--- | :---: |
-| **1** | **UI5 Basics & BAS** | OpenUI5 bootstrap with SAP Horizon theme (`sap_horizon`) in `index.html` | ✅ Verified |
-| **2** | **Component.js** | Extends `UIComponent`, initializes models, routing, and LocalStorage sync | ✅ Verified |
-| **3** | **manifest.json** | Central descriptor for routing targets, models, and i18n bundles | ✅ Verified |
-| **4** | **Views & MVC** | XML Views (`App`, `List`, `Detail`, `NotFound`) extending `BaseController.js` | ✅ Verified |
-| **5** | **Fiori Controls** | `sap.m.Table`, `ObjectHeader`, `ObjectStatus`, `ProgressIndicator`, `GenericTile` | ✅ Verified |
-| **6** | **Layout** | Two-column `sap.f.FlexibleColumnLayout` with full-screen expansion toggle | ✅ Verified |
-| **7** | **JSON Model** | Authored dataset (`products.json`) loaded as primary named model | ✅ Verified |
-| **8** | **Resource Model / i18n** | Externalized text with runtime language switcher (EN, DE, HI) | ✅ Verified |
-| **9** | **Bindings** | Aggregation, element, property, expression, and two-way form binding | ✅ Verified |
-| **10** | **Routing** | Deep-linking `#`, `#/product/{productId}`, and `:all*:` NotFound routes | ✅ Verified |
-| **11** | **Custom Formatters** | `formatter.js` module computing status state/icon, currency (₹), and date | ✅ Verified |
-| **12** | **Fragments** | Reusable `AddEditProduct`, `ViewSettings`, and `ValueHelpSupplier` fragments | ✅ Verified |
+| **1** | **UI5 Basics & BAS** | OpenUI5 bootstrap with SAP Horizon theme (`sap_horizon`) in `index.html` | 
+| **2** | **Component.js** | Extends `UIComponent`, initializes models, routing, and LocalStorage sync | 
+| **3** | **manifest.json** | Central descriptor for routing targets, models, and i18n bundles | 
+| **4** | **Views & MVC** | XML Views (`App`, `List`, `Detail`, `NotFound`) extending `BaseController.js` | 
+| **5** | **Fiori Controls** | `sap.m.Table`, `ObjectHeader`, `ObjectStatus`, `ProgressIndicator`, `GenericTile` | 
+| **6** | **Layout** | Two-column `sap.f.FlexibleColumnLayout` with full-screen expansion toggle | 
+| **7** | **JSON Model** | Authored dataset (`products.json`) loaded as primary named model | 
+| **8** | **Resource Model / i18n** | Externalized text with runtime language switcher (EN, DE, HI) | 
+| **9** | **Bindings** | Aggregation, element, property, expression, and two-way form binding |
+| **10** | **Routing** | Deep-linking `#`, `#/product/{productId}`, and `:all*:` NotFound routes | 
+| **11** | **Custom Formatters** | `formatter.js` module computing status state/icon, currency , and date |
+| **12** | **Fragments** | Reusable `AddEditProduct`, `ViewSettings`, and `ValueHelpSupplier` fragments | 
