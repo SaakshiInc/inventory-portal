@@ -74,17 +74,19 @@ inventory-portal/
 - **Multi-Language & Theme Support**: Runtime localization switching (English, German, Hindi) and Fiori Horizon Light/Dark themes.
 - **Automated QUnit Testing**: Integrated 6 test suites with 19 passing assertions verifying all formatter logic.
 ---
-# | Topic Trained | Implementation Details | Status |
-| :---: | :--- | :--- | :--- |
-| 1 | UI5 Basics & BAS | OpenUI5 bootstrap with SAP Horizon theme (sap_horizon) in index.html | Completed |
-| 2 | Component.js | Extends UIComponent, initializes models, routing, and LocalStorage sync | Completed |
-| 3 | manifest.json | Central descriptor for routing targets, models, and i18n bundles | Completed |
-| 4 | Views & MVC | XML Views (App, List, Detail, NotFound) extending BaseController.js | Completed |
-| 5 | Fiori Controls | sap.m.Table, ObjectHeader, ObjectStatus, ProgressIndicator, GenericTile | Completed |
-| 6 | Layout | Two-column sap.f.FlexibleColumnLayout with full-screen expansion toggle | Completed |
-| 7 | JSON Model | Authored dataset (products.json) loaded as primary named model | Completed |
-| 8 | Resource Model / i18n | Externalized text with runtime language switcher (EN, DE, HI) | Completed |
-| 9 | Bindings | Aggregation, element, property, expression, and two-way form binding | Completed |
-| 10 | Routing | Deep-linking #, #/product/{productId}, and :all*: NotFound routes | Completed |
-| 11 | Custom Formatters | formatter.js module computing status state/icon, currency, and date | Completed |
-| 12 | Fragments | Reusable AddEditProduct, ViewSettings, and ValueHelpSupplier fragments | Completed |
+## Topic-Coverage Self-Check Matrix
+
+| # | Topic Trained | Implementation | Status |
+| :---: | :--- | :--- | :---: |
+| **1** | **UI5 Basics & BAS** | OpenUI5 bootstrap with SAP Horizon theme (`sap_horizon`) in `index.html` | Completed (✓) |
+| **2** | **Component.js** | Extends `UIComponent`, initializes models, routing, and LocalStorage sync | Completed (✓) |
+| **3** | **manifest.json** | Central descriptor for routing targets, models, and i18n bundles | Completed (✓) |
+| **4** | **Views & MVC** | XML Views (`App`, `List`, `Detail`, `NotFound`) extending `BaseController.js` | Completed (✓) |
+| **5** | **Fiori Controls** | `sap.m.Table`, `ObjectHeader`, `ObjectStatus`, `ProgressIndicator`, `GenericTile` | Completed (✓) |
+| **6** | **Layout** | Two-column `sap.f.FlexibleColumnLayout` with full-screen expansion toggle | Completed (✓) |
+| **7** | **JSON Model** | Authored dataset (`products.json`) loaded as primary named model | Completed (✓) |
+| **8** | **Resource Model / i18n** | Externalized text with runtime language switcher (EN, DE, HI) | Completed (✓) |
+| **9** | **Bindings** | Aggregation, element, property, expression, and two-way form binding | Completed (✓) |
+| **10** | **Routing** | Deep-linking `#`, `#/product/{productId}`, and `:all*:` NotFound routes | Completed (✓) |
+| **11** | **Custom Formatters** | `formatter.js` module computing status state/icon, currency, and date | Completed (✓) |
+| **12** | **Fragments** | Reusable `AddEditProduct`, `ViewSettings`, and `ValueHelpSupplier` fragments | Completed (✓) |
