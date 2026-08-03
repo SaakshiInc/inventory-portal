@@ -76,7 +76,7 @@ inventory-portal/
 ---
 ##  Topic-Coverage Self-Check Matrix
 | # | Topic Trained | Implementation | 
-| :---: | :--- | :--- | :---: |
+| :---: | :--- | :--- | 
 | **1** | **UI5 Basics & BAS** | OpenUI5 bootstrap with SAP Horizon theme (`sap_horizon`) in `index.html` | 
 | **2** | **Component.js** | Extends `UIComponent`, initializes models, routing, and LocalStorage sync | 
 | **3** | **manifest.json** | Central descriptor for routing targets, models, and i18n bundles | 
