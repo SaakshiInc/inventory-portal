@@ -11,13 +11,10 @@ sap.ui.define([
 		onInit: function () {
 			this.getRouter().getRoute("detail").attachPatternMatched(this._onProductMatched, this);
 		},
-		/**
-		 * Pattern matched handler when URL route is #/product/{productId}
-		 */
+
 		_onProductMatched: function (oEvent) {
 			var sProductId = oEvent.getParameter("arguments").productId;
 			this._sCurrentProductId = sProductId;
-			// Ensure layout is updated to TwoColumnsMidExpanded when detail route matches!
 			this.setAppLayout("TwoColumnsMidExpanded");
 			var oProductsModel = this.getModel("products");
 			if (!oProductsModel) {
@@ -33,10 +30,8 @@ sap.ui.define([
 					}
 				}
 				if (iIndex !== -1) {
-					// Bind element context to detail view
 					this.getView().bindElement("products>/products/" + iIndex);
 				} else if (aProducts.length > 0) {
-					// Invalid productId -> Route to NotFound view
 					this.getRouter().getTargets().display("notFound");
 				}
 			}.bind(this);
@@ -49,7 +44,6 @@ sap.ui.define([
 			}
 		},
 		/**
-		 * Reorders stock by incrementing current stock quantity by 25
 		 */
 		onReorderStock: function () {
 			this._modifyStock(25);
@@ -79,7 +73,6 @@ sap.ui.define([
 			this.showMessageToast(this.getText("msgReorderSuccess", [oProduct.name, iNewStock]));
 		},
 		/**
-		 * Opens Add/Edit dialog prefilled with current item context
 		 */
 		onEditProduct: function () {
 			var oBindingContext = this.getView().getBindingContext("products");
@@ -163,7 +156,6 @@ sap.ui.define([
 			}
 		},
 		/**
-		 * Deletes current product with MessageBox confirmation
 		 */
 		onDeleteProduct: function () {
 			var oBindingContext = this.getView().getBindingContext("products");
@@ -187,7 +179,6 @@ sap.ui.define([
 			}.bind(this));
 		},
 		/**
-		 * Toggles fullscreen mode for detail column
 		 */
 		onToggleFullScreen: function () {
 			var bFullScreen = this.getModel("appView").getProperty("/actionButtonsInfo/midColumn/fullScreen");
@@ -199,7 +190,6 @@ sap.ui.define([
 			}
 		},
 		/**
-		 * Closes detail pane and returns to 1-column layout
 		 */
 		onCloseDetail: function () {
 			this.setAppLayout("OneColumn");

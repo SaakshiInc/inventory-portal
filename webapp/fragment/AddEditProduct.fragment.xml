@@ -15,7 +15,7 @@
 				columnsM="1"
 				columnsL="2">
 				<form:content>
-					<!-- Product ID -->
+					
 					<Label text="{i18n>dialogLabelId}" required="true" />
 					<Input
 						value="{dialogModel>/productId}"
@@ -24,7 +24,7 @@
 						valueStateText="{i18n>valRequiredField}"
 						change=".onValidateDialogInputs" />
 
-					<!-- Product Name -->
+					
 					<Label text="{i18n>dialogLabelName}" required="true" />
 					<Input
 						value="{dialogModel>/name}"
@@ -32,7 +32,7 @@
 						valueStateText="{i18n>valRequiredField}"
 						change=".onValidateDialogInputs" />
 
-					<!-- Category -->
+					
 					<Label text="{i18n>dialogLabelCategory}" required="true" />
 					<Select
 						selectedKey="{dialogModel>/category}">
@@ -43,7 +43,7 @@
 						<core:Item key="Eco Packaging" text="Eco Packaging" />
 					</Select>
 
-					<!-- SKU -->
+					
 					<Label text="{i18n>dialogLabelSKU}" required="true" />
 					<Input
 						value="{dialogModel>/sku}"
@@ -51,7 +51,7 @@
 						valueStateText="{i18n>valRequiredField}"
 						change=".onValidateDialogInputs" />
 
-					<!-- Price -->
+					
 					<Label text="{i18n>dialogLabelPrice}" required="true" />
 					<Input
 						value="{dialogModel>/price}"
@@ -60,7 +60,6 @@
 						valueStateText="{i18n>valPriceInvalid}"
 						change=".onValidateDialogInputs" />
 
-					<!-- Stock Quantity -->
 					<Label text="{i18n>dialogLabelStock}" required="true" />
 					<Input
 						value="{dialogModel>/stock}"
@@ -69,7 +68,6 @@
 						valueStateText="{i18n>valStockInvalid}"
 						change=".onValidateDialogInputs" />
 
-					<!-- Reorder Threshold -->
 					<Label text="{i18n>dialogLabelThreshold}" required="true" />
 					<Input
 						value="{dialogModel>/reorderThreshold}"
@@ -78,19 +76,16 @@
 						valueStateText="{i18n>valThresholdInvalid}"
 						change=".onValidateDialogInputs" />
 
-					<!-- Supplier -->
 					<Label text="{i18n>dialogLabelSupplier}" />
 					<Input
 						value="{dialogModel>/supplier}"
 						showValueHelp="true"
 						valueHelpRequest=".onOpenValueHelpSupplier" />
 
-					<!-- Warehouse Location -->
 					<Label text="{i18n>dialogLabelWarehouse}" />
 					<Input
 						value="{dialogModel>/warehouse}" />
 
-					<!-- Description -->
 					<Label text="{i18n>dialogLabelDescription}" />
 					<TextArea
 						value="{dialogModel>/description}"

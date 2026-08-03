@@ -8,7 +8,6 @@ sap.ui.define([
 
 	return Controller.extend("novamart.inventory.controller.BaseController", {
 		/**
-		 * Convenient method for accessing the router in every controller.
 		 * @public
 		 * @returns {sap.ui.core.routing.Router} the router for this component
 		 */
@@ -17,7 +16,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Convenient method for getting the view model by name in every controller.
 		 * @public
 		 * @param {string} [sName] the model name
 		 * @returns {sap.ui.model.Model} the model instance
@@ -27,7 +25,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Convenient method for setting the view model in every controller.
 		 * @public
 		 * @param {sap.ui.model.Model} oModel the model instance
 		 * @param {string} [sName] the model name
@@ -38,7 +35,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Convenient method for getting the resource bundle.
 		 * @public
 		 * @returns {sap.ui.model.resource.ResourceBundle|null} the resourceBundle of the component
 		 */
@@ -49,7 +45,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Helper to get translated string from i18n bundle
 		 * @param {string} sKey 
 		 * @param {Array} [aArgs] 
 		 * @returns {string} Translated text
@@ -63,7 +58,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Helper to show MessageToast
 		 * @param {string} sMessage 
 		 */
 		showMessageToast: function (sMessage) {
@@ -74,7 +68,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Helper to show confirmation MessageBox
 		 * @param {string} sMessage 
 		 * @param {string} sTitle 
 		 * @param {function} fnCallback 
@@ -91,7 +84,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Updates FlexibleColumnLayout layout state
 		 * @param {string} sLayout e.g. "OneColumn", "TwoColumnsMidExpanded"
 		 */
 		setAppLayout: function (sLayout) {
@@ -99,7 +91,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Switches theme between Horizon Light and Horizon Dark
 		 * @param {string} sTheme 
 		 */
 		setAppTheme: function (sTheme) {
@@ -107,7 +98,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Changes runtime language/locale
 		 * @param {string} sLanguage e.g. "en", "de", "hi"
 		 */
 		setAppLanguage: function (sLanguage) {
@@ -115,7 +105,6 @@ sap.ui.define([
 		},
 
 		/**
-		 * Validates dialog input fields for Add/Edit Product
 		 * @returns {boolean} True if all fields are valid
 		 */
 		onValidateDialogInputs: function () {
@@ -125,7 +114,6 @@ sap.ui.define([
 			}
 			var bValid = true;
 
-			// Name validation
 			var sName = oModel.getProperty("/name");
 			if (!sName || String(sName).trim() === "") {
 				oModel.setProperty("/valStateName", "Error");
@@ -133,8 +121,6 @@ sap.ui.define([
 			} else {
 				oModel.setProperty("/valStateName", "None");
 			}
-
-			// SKU validation
 			var sSKU = oModel.getProperty("/sku");
 			if (!sSKU || String(sSKU).trim() === "") {
 				oModel.setProperty("/valStateSKU", "Error");
@@ -143,7 +129,6 @@ sap.ui.define([
 				oModel.setProperty("/valStateSKU", "None");
 			}
 
-			// Price validation
 			var fPrice = parseFloat(oModel.getProperty("/price"));
 			if (isNaN(fPrice) || fPrice <= 0) {
 				oModel.setProperty("/valStatePrice", "Error");
@@ -151,8 +136,6 @@ sap.ui.define([
 			} else {
 				oModel.setProperty("/valStatePrice", "None");
 			}
-
-			// Stock validation
 			var iStock = parseInt(oModel.getProperty("/stock"), 10);
 			if (isNaN(iStock) || iStock < 0) {
 				oModel.setProperty("/valStateStock", "Error");

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "NovaMart Product Inventory & Order Management Portal",
   "scripts": {
-    "start": "npx serve webapp"
+    "start": "npx serve -l 8080 webapp"
   },
   "keywords": [
     "sapui5",

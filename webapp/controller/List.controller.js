@@ -30,7 +30,6 @@ sap.ui.define([
 				oTable.attachEvent("updateFinished", this._onTableUpdateFinished, this);
 			}
 
-			// Calculate initial KPI tiles statistics when products load
 			var oProductsModel = this.getOwnerComponent().getModel("products");
 			if (oProductsModel) {
 				if (oProductsModel.getData() && oProductsModel.getData().products) {
@@ -41,9 +40,7 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Computes KPI statistics dynamically from products dataset
-		 */
+		
 		_updateKpiStatistics: function () {
 			var oProductsModel = this.getModel("products");
 			if (!oProductsModel) {
@@ -74,9 +71,6 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Updates header count title whenever table filtering/sorting/binding updates
-		 */
 		_onTableUpdateFinished: function (oEvent) {
 			var iTotalItems = oEvent.getParameter("total");
 			var sTitle = this.getText("masterCountLabel", [iTotalItems]);
@@ -84,9 +78,7 @@ sap.ui.define([
 			this._updateKpiStatistics();
 		},
 
-		/**
-		 * Live search handler for filtering products by name, category, SKU, or supplier
-		 */
+		
 		onSearch: function (oEvent) {
 			var sQuery = oEvent.getParameter("newValue");
 			if (sQuery === undefined || sQuery === null) {
@@ -116,9 +108,7 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Quick filter toggle for Low Stock items (stock > 0 && stock <= reorderThreshold)
-		 */
+		
 		onToggleLowStockFilter: function (oEvent) {
 			var bPressed = oEvent.getParameter("pressed");
 			var oTable = this.byId("productsTable");
@@ -137,9 +127,7 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Dynamically filters products matching stock > 0 && stock <= reorderThreshold
-		 */
+		
 		onFilterLowStockOnly: function () {
 			this.getModel("masterView").setProperty("/isLowStockFilterPressed", true);
 			var oTable = this.byId("productsTable");
@@ -174,9 +162,6 @@ sap.ui.define([
 			this.showMessageToast(this.getText("btnLowStockFilter"));
 		},
 
-		/**
-		 * Filters products where stock === 0
-		 */
 		onFilterOutOfStockOnly: function () {
 			var oTable = this.byId("productsTable");
 			if (oTable) {
@@ -188,9 +173,7 @@ sap.ui.define([
 			this.showMessageToast(this.getText("statusOutOfStock"));
 		},
 
-		/**
-		 * Row item tap/click handler -> Navigates to Detail view route
-		 */
+		
 		onProductSelect: function (oEvent) {
 			this._navigateToProduct(oEvent);
 		},
@@ -206,12 +189,10 @@ sap.ui.define([
 
 			var oBindingContext = null;
 
-			// 1. Try direct getBindingContext
 			if (typeof oEventOrItem.getBindingContext === "function") {
 				oBindingContext = oEventOrItem.getBindingContext("products");
 			}
 
-			// 2. Try oEvent.getParameter("listItem")
 			if (!oBindingContext && typeof oEventOrItem.getParameter === "function") {
 				var oListItem = oEventOrItem.getParameter("listItem");
 				if (oListItem && typeof oListItem.getBindingContext === "function") {
@@ -219,7 +200,6 @@ sap.ui.define([
 				}
 			}
 
-			// 3. Try oEvent.getSource()
 			if (!oBindingContext && typeof oEventOrItem.getSource === "function") {
 				var oSource = oEventOrItem.getSource();
 				if (oSource && typeof oSource.getBindingContext === "function") {
@@ -227,7 +207,6 @@ sap.ui.define([
 				}
 			}
 
-			// 4. Try Table selected item fallback
 			if (!oBindingContext) {
 				var oTable = this.byId("productsTable");
 				if (oTable && typeof oTable.getSelectedItem === "function") {
@@ -247,18 +226,13 @@ sap.ui.define([
 				return;
 			}
 			
-			// Update FlexibleColumnLayout layout to show detail pane
 			this.setAppLayout("TwoColumnsMidExpanded");
 
-			// Navigate to detail route
 			this.getRouter().navTo("detail", {
 				productId: sProductId
 			});
 		},
 
-		/**
-		 * Quick inline stock reorder button (+25)
-		 */
 		onQuickReorder: function (oEvent) {
 			var oButton = oEvent.getSource();
 			var oBindingContext = oButton.getBindingContext("products");
@@ -280,9 +254,6 @@ sap.ui.define([
 			this.showMessageToast(this.getText("msgReorderSuccess", [oProduct.name, iNewStock]));
 		},
 
-		/**
-		 * Bulk reorders (+25 stock) for all selected items in multi-select table
-		 */
 		onBulkReorder: function () {
 			var oTable = this.byId("productsTable");
 			if (!oTable) {
@@ -315,9 +286,7 @@ sap.ui.define([
 			this.showMessageToast(this.getText("msgBulkReorderSuccess", [iCount]));
 		},
 
-		/**
-		 * Exports current inventory table data to CSV file download
-		 */
+		
 		onExportCSV: function () {
 			var oProductsModel = this.getModel("products");
 			if (!oProductsModel) {
@@ -356,9 +325,6 @@ sap.ui.define([
 			this.showMessageToast(this.getText("msgExportSuccess"));
 		},
 
-		/**
-		 * Resets dataset to initial products.json state
-		 */
 		onResetDataset: function () {
 			StorageManager.resetLocalStorage();
 			var oProductsModel = this.getModel("products");
@@ -371,9 +337,7 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Resets all active table filters and search field
-		 */
+	
 		onResetFilters: function () {
 			this.byId("searchField").setValue("");
 			this.getModel("masterView").setProperty("/isLowStockFilterPressed", false);
@@ -388,9 +352,7 @@ sap.ui.define([
 			this.showMessageToast(this.getText("btnResetFilters"));
 		},
 
-		/**
-		 * Lazy loads and opens ViewSettings dialog
-		 */
+		
 		onOpenViewSettings: function () {
 			var oView = this.getView();
 
@@ -410,9 +372,7 @@ sap.ui.define([
 			});
 		},
 
-		/**
-		 * Handles confirmation of ViewSettings dialog
-		 */
+		
 		onConfirmViewSettings: function (oEvent) {
 			var oTable = this.byId("productsTable");
 			if (!oTable) {
@@ -421,7 +381,6 @@ sap.ui.define([
 			var oBinding = oTable.getBinding("items");
 			var mParams = oEvent.getParameters();
 
-			// 1. Sort & Group
 			var aSorters = [];
 			if (mParams.groupItem) {
 				var sGroupPath = mParams.groupItem.getKey();
@@ -433,7 +392,6 @@ sap.ui.define([
 			}
 			oBinding.sort(aSorters);
 
-			// 2. Filter
 			var aFilters = [];
 			if (mParams.filterItems && mParams.filterItems.length > 0) {
 				mParams.filterItems.forEach(function (oItem) {
@@ -450,9 +408,7 @@ sap.ui.define([
 			oBinding.filter(aFilters);
 		},
 
-		/**
-		 * Opens Add Product dialog with blank state
-		 */
+		
 		onAddProduct: function () {
 			var sNextId = "NM-IN-" + (Math.floor(200 + Math.random() * 800));
 			var oNewProductData = {
@@ -481,9 +437,6 @@ sap.ui.define([
 			this._openAddEditDialog(oNewProductData);
 		},
 
-		/**
-		 * Opens Add/Edit dialog populated with given data
-		 */
 		_openAddEditDialog: function (oData) {
 			var oView = this.getView();
 			var oDialogModel = new JSONModel(oData);
@@ -505,9 +458,7 @@ sap.ui.define([
 			});
 		},
 
-		/**
-		 * Saves product from dialog into JSONModel and local storage
-		 */
+	
 		onSaveProductDialog: function () {
 			if (!this.onValidateDialogInputs()) {
 				this.showMessageToast(this.getText("msgSaveError"));
@@ -569,9 +520,6 @@ sap.ui.define([
 			}
 		},
 
-		/**
-		 * Supplier Value Help Dialog
-		 */
 		onOpenValueHelpSupplier: function () {
 			var oView = this.getView();
 			if (!this._pValueHelpDialog) {
@@ -598,7 +546,6 @@ sap.ui.define([
 			}
 		},
 
-		// QUnit In-App Dialog Test Runner (Pure DOM - No iframe / No 401 error)
 		onOpenQUnitTestDialog: function () {
 			var oView = this.getView();
 			if (this._oQUnitTestDialog) {
@@ -666,7 +613,6 @@ sap.ui.define([
 			oDialog.open();
 		},
 
-		// Theme & Language Switchers
 		onChangeThemeLight: function () {
 			this.setAppTheme("sap_horizon");
 		},
