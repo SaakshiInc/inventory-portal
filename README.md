@@ -87,4 +87,4 @@ inventory-portal/
 | 9 | Bindings | Aggregation, element, property, expression, and two-way form binding | Completed |
 | 10 | Routing | Deep-linking #, #/product/{productId}, and :all*: NotFound routes | Completed |
 | 11 | Custom Formatters | formatter.js module computing status state/icon, currency, and date | Completed |
-| 12 | Fragments | Reusable AddEditProduct, ViewSettings, and ValueHelpSupplier fragments | Completed 
+| 12 | Fragments | Reusable AddEditProduct, ViewSettings, and ValueHelpSupplier fragments | Completed |
