@@ -1,7 +1,4 @@
 # NovaMart - Product Inventory & Order Management Portal
-[![SAPUI5](https://img.shields.io/badge/SAPUI5-1.120.0-blue.svg)](https://openui5.org/)
-[![License](https://img.shields.io/badge/License-UNLICENSED-brightgreen.svg)]()
-[![Build Status](https://img.shields.io/badge/Tests-19%20Passed-success.svg)]()
 > Enterprise-grade SAPUI5 Freestyle Master-Detail portal designed for warehouse product inventory management, automated stock alerts, and procurement workflows.
 
 ---
@@ -61,6 +58,7 @@ inventory-portal/
         ├── unitTests.qunit.html   # Standalone QUnit runner
         ├── unitTests.qunit.js     # QUnit bootstrap loader
         └── formatterTest.js       # 6 test suites (19 assertions)
+```
 ---
 ## 🌟 Implemented Features
 - **Executive KPI Dashboard**: 3 real-time interactive tiles (*Total Products*, *Low Stock Alerts*, *Out of Stock Items*).
@@ -71,8 +69,6 @@ inventory-portal/
 - **Multi-Language & Theme Support**: Runtime localization switching (English, German, Hindi) and Fiori Horizon Light/Dark themes.
 - **Automated QUnit Testing**: Integrated 6 test suites with 19 passing assertions verifying all formatter logic.
 ---
-
-
 ## 🎯 Topic-Coverage Self-Check Matrix
 | # | Topic Trained | Implementation | Status |
 | :---: | :--- | :--- | :---: |
