@@ -10,7 +10,13 @@
 		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="{products>name}" level="H2" />
+					<Title text="{
+						parts: [
+							{path: 'products>productId'},
+							{path: 'products>name'}
+						],
+						formatter: '.formatter.productName'
+					}" level="H2" />
 				</f:heading>
 				<f:snappedContent>
 					<Text text="{i18n>detailLabelSKU}: {products>sku}" />
@@ -56,7 +62,13 @@
 			<f:DynamicPageHeader pinnable="true">
 				<VBox width="100%">
 					<ObjectHeader
-						title="{products>name}"
+						title="{
+							parts: [
+								{path: 'products>productId'},
+								{path: 'products>name'}
+							],
+							formatter: '.formatter.productName'
+						}"
 						number="{
 							parts: [
 								{path: 'products>price'},
@@ -202,7 +214,13 @@
 
 				<!-- Description Section -->
 				<Panel headerText="{i18n>detailSectionDescription}" class="sapUiSmallMarginTop" expandable="true" expanded="true">
-					<Text text="{products>description}" class="sapUiTinyMargin" />
+					<Text text="{
+						parts: [
+							{path: 'products>productId'},
+							{path: 'products>description'}
+						],
+						formatter: '.formatter.productDescription'
+					}" class="sapUiTinyMargin" />
 				</Panel>
 			</VBox>
 		</f:content>

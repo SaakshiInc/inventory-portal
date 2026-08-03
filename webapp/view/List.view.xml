@@ -33,6 +33,11 @@
 						text="{i18n>btnBulkReorder}"
 						type="Default"
 						press=".onBulkReorder" />
+						<Button
+							icon="sap-icon://test"
+						text="Run QUnit Tests"
+						type="Accept"
+						press=".onOpenQUnitTestDialog" />
 					<Button
 						icon="sap-icon://filter"
 						tooltip="{i18n>btnViewSettings}"
@@ -190,7 +195,13 @@
 									class="sapUiTinyMarginEnd novamartCategoryAvatar" />
 								<VBox>
 									<ObjectIdentifier
-										title="{products>name}"
+										title="{
+											parts: [
+												{path: 'products>productId'},
+												{path: 'products>name'}
+											],
+											formatter: '.formatter.productName'
+										}"
 										text="{products>sku}"
 										titleActive="true"
 										titlePress=".onProductPress" />

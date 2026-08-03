@@ -6,114 +6,71 @@ sap.ui.define([
 
 	return {
 		/**
-		 * Computes ObjectStatus ValueState based on stock vs threshold
+		 * Computes Stock Status State (Error, Warning, Success)
 		 */
 		stockStatusState: function (iStock, iThreshold) {
 			var stock = parseInt(iStock, 10);
 			var threshold = parseInt(iThreshold, 10);
 
-			if (isNaN(stock) || stock === 0) {
-				return "Error";
-			} else if (stock <= threshold) {
-				return "Warning";
+			if (isNaN(stock) || stock <= 0) {
+				return "Error"; // Out of Stock
 			}
-			return "Success";
+			if (stock <= (isNaN(threshold) ? 10 : threshold)) {
+				return "Warning"; // Low Stock
+			}
+			return "Success"; // Available
 		},
 
 		/**
-		 * Computes localized stock status text
-		 */
-		stockStatusText: function (iStock, iThreshold) {
-			var stock = parseInt(iStock, 10);
-			var threshold = parseInt(iThreshold, 10);
-
-			var oResourceBundle = null;
-			try {
-				if (this && typeof this.getOwnerComponent === "function") {
-					var oComponent = this.getOwnerComponent();
-					var oI18nModel = oComponent ? oComponent.getModel("i18n") : null;
-					if (oI18nModel && typeof oI18nModel.getResourceBundle === "function") {
-						oResourceBundle = oI18nModel.getResourceBundle();
-					}
-				}
-			} catch (e) {
-				oResourceBundle = null;
-			}
-
-			if (isNaN(stock) || stock === 0) {
-				return (oResourceBundle && typeof oResourceBundle.getText === "function") ? oResourceBundle.getText("statusOutOfStock") : "Out of Stock";
-			} else if (stock <= threshold) {
-				return (oResourceBundle && typeof oResourceBundle.getText === "function") ? oResourceBundle.getText("statusLowStock") : "Low Stock";
-			}
-			return (oResourceBundle && typeof oResourceBundle.getText === "function") ? oResourceBundle.getText("statusAvailable") : "Available";
-		},
-
-		/**
-		 * Returns sap-icon path based on stock status
+		 * Computes Stock Status Icon
 		 */
 		stockStatusIcon: function (iStock, iThreshold) {
 			var stock = parseInt(iStock, 10);
 			var threshold = parseInt(iThreshold, 10);
 
-			if (isNaN(stock) || stock === 0) {
+			if (isNaN(stock) || stock <= 0) {
 				return "sap-icon://error";
-			} else if (stock <= threshold) {
+			}
+			if (stock <= (isNaN(threshold) ? 10 : threshold)) {
 				return "sap-icon://alert";
 			}
 			return "sap-icon://accept";
 		},
 
 		/**
-		 * Computes category avatar icon
+		 * Computes Stock Status Text from i18n
 		 */
-		categoryIcon: function (sCategory) {
-			if (!sCategory) {
-				return "sap-icon://product";
+		stockStatusText: function (iStock, iThreshold) {
+			var stock = parseInt(iStock, 10);
+			var threshold = parseInt(iThreshold, 10);
+
+			if (isNaN(stock) || stock <= 0) {
+				return "Out of Stock";
 			}
-			if (sCategory.indexOf("Spices") !== -1) {
-				return "sap-icon://nutrition-activity";
-			} else if (sCategory.indexOf("Dairy") !== -1) {
-				return "sap-icon://official-service";
-			} else if (sCategory.indexOf("Kitchenware") !== -1) {
-				return "sap-icon://dishwasher";
-			} else if (sCategory.indexOf("Hygiene") !== -1) {
-				return "sap-icon://soap";
-			} else if (sCategory.indexOf("Packaging") !== -1) {
-				return "sap-icon://shipping-status";
+			if (stock <= (isNaN(threshold) ? 10 : threshold)) {
+				return "Low Stock";
 			}
-			return "sap-icon://product";
+			return "Available";
 		},
 
 		/**
-		 * Computes percentage for stock progress indicator
-		 */
-		stockPercent: function (iStock, iThreshold) {
-			var stock = parseInt(iStock, 10) || 0;
-			var threshold = parseInt(iThreshold, 10) || 10;
-			var max = threshold * 3;
-			var pct = Math.round((stock / max) * 100);
-			return Math.min(Math.max(pct, 0), 100);
-		},
-
-		/**
-		 * Formats currency number into localized string
+		 * Formats currency values
 		 */
 		currencyValue: function (fValue, sCurrency) {
 			if (fValue === null || fValue === undefined || fValue === "") {
 				return "";
 			}
-			var num = parseFloat(fValue);
-			if (isNaN(num)) {
-				return "";
-			}
 			var oCurrencyFormat = NumberFormat.getCurrencyInstance({
-				currencyCode: true
+				currencyCode: false,
+				customCurrencies: {
+					"INR": { symbol: "₹" }
+				}
 			});
-			return oCurrencyFormat.format(num, sCurrency || "INR");
+			return oCurrencyFormat.format(fValue, sCurrency || "INR");
 		},
 
 		/**
-		 * Formats YYYY-MM-DD string into localized medium date
+		 * Formats ISO date string into medium date format
 		 */
 		formatDate: function (sDateString) {
 			if (!sDateString) {
@@ -127,6 +84,91 @@ sap.ui.define([
 				style: "medium"
 			});
 			return oDateFormat.format(oDate);
+		},
+
+		/**
+		 * Category Avatar Icon Mapper
+		 */
+		categoryIcon: function (sCategory) {
+			switch (sCategory) {
+				case "Gourmet Spices & Oils":
+					return "sap-icon://nutrition-activity";
+				case "Dairy & Packaged Commodities":
+					return "sap-icon://meal";
+				case "Kitchenware & Appliances":
+					return "sap-icon://lab";
+				case "Hygiene & Sanitation":
+					return "sap-icon://soap";
+				case "Eco Packaging":
+					return "sap-icon://shipping-status";
+				default:
+					return "sap-icon://product";
+			}
+		},
+
+		/**
+		 * Computes Stock Progress Percentage
+		 */
+		stockPercent: function (iStock, iThreshold) {
+			var stock = parseInt(iStock, 10) || 0;
+			var threshold = (parseInt(iThreshold, 10) || 10) * 3;
+			if (stock <= 0) {
+				return 0;
+			}
+			var percent = Math.round((stock / threshold) * 100);
+			return percent > 100 ? 100 : percent;
+		},
+
+		/**
+		 * Dynamically translates product names via active i18n bundle
+		 */
+		productName: function (sProductId, sDefaultName) {
+			if (!sProductId) {
+				return sDefaultName || "";
+			}
+			try {
+				var oResourceBundle = null;
+				if (this && typeof this.getOwnerComponent === "function" && this.getOwnerComponent()) {
+					oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+				} else if (this && typeof this.getModel === "function" && this.getModel("i18n")) {
+					oResourceBundle = this.getModel("i18n").getResourceBundle();
+				}
+				if (oResourceBundle) {
+					var sKey = "prod_" + sProductId.replace(/-/g, "_") + "_name";
+					if (typeof oResourceBundle.hasText === "function" && oResourceBundle.hasText(sKey)) {
+						return oResourceBundle.getText(sKey);
+					}
+				}
+			} catch (e) {
+				// Fallback
+			}
+			return sDefaultName || "";
+		},
+
+		/**
+		 * Dynamically translates product descriptions via active i18n bundle
+		 */
+		productDescription: function (sProductId, sDefaultDesc) {
+			if (!sProductId) {
+				return sDefaultDesc || "";
+			}
+			try {
+				var oResourceBundle = null;
+				if (this && typeof this.getOwnerComponent === "function" && this.getOwnerComponent()) {
+					oResourceBundle = this.getOwnerComponent().getModel("i18n").getResourceBundle();
+				} else if (this && typeof this.getModel === "function" && this.getModel("i18n")) {
+					oResourceBundle = this.getModel("i18n").getResourceBundle();
+				}
+				if (oResourceBundle) {
+					var sKey = "prod_" + sProductId.replace(/-/g, "_") + "_desc";
+					if (typeof oResourceBundle.hasText === "function" && oResourceBundle.hasText(sKey)) {
+						return oResourceBundle.getText(sKey);
+					}
+				}
+			} catch (e) {
+				// Fallback
+			}
+			return sDefaultDesc || "";
 		}
 	};
 });

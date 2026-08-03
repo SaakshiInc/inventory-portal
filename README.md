@@ -17,6 +17,9 @@ cd /home/user/projects/inventory-portal
 Run the following command to serve the application:
 ```bash
 npx serve -l 8080 webapp
+```or
+```bash
+npm start
 ```
 Open in Browser:
    Click the BAS preview notification or open:  
